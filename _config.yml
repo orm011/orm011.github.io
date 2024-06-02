@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # Site settings
 # -----------------------------------------------------------------------------
-title: Oscar R. Moll's academic site # the website title (if blank, full name will be used instead)
+title: Oscar R. Moll # the website title (if blank, full name will be used instead)
 first_name: Oscar
 middle_name: Ricardo
 last_name: Moll
