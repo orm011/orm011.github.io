@@ -1,9 +1,11 @@
-"AJP":
-  url: https://aapt.scitation.org/journal/ajp
-  color: "#00369f"
+"ACM SIGMOD":
+  url: https://2024.sigmod.org/
+  color: "#009f36"
 
-"PhysRev":
-  url: https://journals.aps.org/
+"IEEE ICDE":
+  url: https://ieeexplore.ieee.org/servlet/opac?punumber=10184508
+  color: "#009f36"
 
-"Vision":
+"VLDB":
+  url: https://vldb.org/2017/
   color: "#009f36"

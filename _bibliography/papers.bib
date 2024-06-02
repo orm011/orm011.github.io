@@ -1,113 +1,73 @@
 ---
 ---
-
-@string{aps = {American Physical Society,}}
-
-@book{einstein1920relativity,
-  title={Relativity: the Special and General Theory},
-  author={Einstein, Albert},
-  year={1920},
-  publisher={Methuen & Co Ltd},
-  html={relativity.html}
-}
-
-@book{einstein1956investigations,
+@ARTICLE{Moll2023-hk,
   bibtex_show={true},
-  title={Investigations on the Theory of the Brownian Movement},
-  author={Einstein, Albert},
-  year={1956},
-  publisher={Courier Corporation},
-  preview={brownian-motion.gif}
+  abbr = {ACM SIGMOD},
+  title     = "{SeeSaw}: Interactive Ad-hoc Search Over Image Databases",
+  author    = "Moll, Oscar and Favela, Manuel and Madden, Samuel and Gadepally,
+               Vijay and Cafarella, Michael",
+  journal   = "Proc. ACM SIGMOD Int. Conf. Manag. Data",
+  publisher = "Association for Computing Machinery",
+  abstract = {
+     As image datasets become ubiquitous, the problem of ad-hoc searches over image data is increasingly important. Many high-level data tasks in machine learning, such as constructing datasets for training and testing object detectors, imply finding ad-hoc objects or scenes within large image datasets as a key sub-problem. New foundational visual-semantic embeddings trained on massive web datasets such as Contrastive Language-Image Pre-Training (CLIP) can help users start searches on their own data, but we find there is a long tail of queries where these models fall short in practice. Seesaw is a system for interactive ad-hoc searches on image datasets that integrates state-of-the-art embeddings like CLIP with user feedback in the form of box annotations to help users quickly locate images of interest in their data even in the long tail of harder queries. One key challenge for Seesaw is that, in practice, many sensible approaches to incorporating feedback into future results, including state-of-the-art active-learning algorithms, can worsen results compared to introducing no feedback, partly due to CLIP's high-average performance. Therefore, Seesaw includes several algorithms that empirically result in larger and also more consistent improvements. We compare Seesaw's accuracy to both using CLIP alone and to a state-of-the-art active-learning baseline and find Seesaw consistently helps improve results for users across four datasets and more than a thousand queries. Seesaw increases Average Precision (AP) on search tasks by an average of .08 on a wide benchmark (from a base of .72), and by a .27 on a subset of more difficult queries where CLIP alone performs poorly.
+  },
+  volume    =  1,
+  number    =  4,
+  pages     = "1--26",
+  month     =  dec,
+  year      =  2023,
+  url       = "https://doi.org/10.1145/3626754",
+  address   = "New York, NY, USA",
+  keywords  = "active search, data exploration, image retrieval, image search,
+               machine learning, multi-modal embeddings, relevance feedback",
+  issn      = "0730-8078",
+  doi       = "10.1145/3626754",
+  selected  = {true}
 }
 
-@article{einstein1950meaning,
-  abbr={AJP},
+@INPROCEEDINGS{Moll2022-em,
   bibtex_show={true},
-  title={The meaning of relativity},
-  author={Einstein, Albert and Taub, AH},
-  journal={American Journal of Physics},
-  volume={18},
-  number={6},
-  pages={403--404},
-  year={1950},
-  publisher={American Association of Physics Teachers}
+  abbr = {IEEE ICDE},
+  title           = "{ExSample}: Efficient searches on video repositories
+                     through adaptive sampling",
+  booktitle       = "2022 {IEEE} 38th International Conference on Data
+                     Engineering ({ICDE})",
+  author          = "Moll, Oscar and Bastani, Favyen and Madden, Sam and
+                     Stonebraker, Mike and Gadepally, Vijay and Kraska, Tim",
+  publisher       = "IEEE",
+  abstract = {
+    ExSample is introduced, a low cost framework for object search over un-indexed video that quickly processes search queries by adapting the amount and location of sampled frames to the particular data and query being processed. Capturing and processing video is increasingly common as cameras become cheaper to deploy. At the same time, rich video-understanding methods have progressed greatly in the last decade. As a result, many organizations now have massive repositories of video data, with applications in mapping, navigation, autonomous driving, and other areas. Because state-of-the-art object-detection methods are slow and expensive, our ability to process even simple ad-hoc object search queries (“find 100 traffic lights in dashcam video”) over this accumulated data lags far behind our ability to collect the data. Processing video at reduced sampling rates is a reasonable default strategy for these types of queries; however, the ideal sampling rate is both data and query dependent. We introduce ExSample, a low cost framework for object search over un-indexed video that quickly processes search queries by adapting the amount and location of sampled frames to the particular data and query being processed. ExSample prioritizes the processing of frames in a video repository so that processing is focused in portions of video that most likely contain objects of interest. It approaches searching in a similar way to a multi-arm bandit problem where each arm corresponds to a portion of a video. On large, real-world datasets, ExSample reduces processing time by 1.9x on average and up to 6x over an efficient random sampling baseline. Moreover, we show ExSample finds many results long before sophisticated, state-of-the-art baselines based on proxy scores can begin producing their first results.
+  },
+  month           =  may,
+  year            =  2022,
+  url             = "https://ieeexplore.ieee.org/document/9835550/",
+  language        = "en",
+  conference      = "2022 IEEE 38th International Conference on Data
+                     Engineering (ICDE)",
+  location        = "Kuala Lumpur, Malaysia",
+  doi             = "10.1109/icde53745.2022.00266",
+  selected  = {true}
 }
 
-@article{PhysRev.47.777,
-  abbr={PhysRev},
-  title={Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?},
-  author={Einstein, A. and Podolsky, B. and Rosen, N.},
-  abstract={In a complete theory there is an element corresponding to each element of reality. A sufficient condition for the reality of a physical quantity is the possibility of predicting it with certainty, without disturbing the system. In quantum mechanics in the case of two physical quantities described by non-commuting operators, the knowledge of one precludes the knowledge of the other. Then either (1) the description of reality given by the wave function in quantum mechanics is not complete or (2) these two quantities cannot have simultaneous reality. Consideration of the problem of making predictions concerning a system on the basis of measurements made on another system that had previously interacted with it leads to the result that if (1) is false then (2) is also false. One is thus led to conclude that the description of reality as given by a wave function is not complete.},
-  journal={Phys. Rev.},
-  location={New Jersey},
-  volume={47},
-  issue={10},
-  pages={777--780},
-  numpages={0},
-  year={1935},
-  month={May},
-  publisher=aps,
-  doi={10.1103/PhysRev.47.777},
-  url={http://link.aps.org/doi/10.1103/PhysRev.47.777},
-  html={https://journals.aps.org/pr/abstract/10.1103/PhysRev.47.777},
-  pdf={example_pdf.pdf},
-  altmetric={248277},
-  dimensions={true},
-  google_scholar_id={qyhmnyLat1gC},
-  video={https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ},
-  additional_info={. *More Information* can be [found here](https://github.com/alshedivat/al-folio/)},
-  selected={true}
-}
 
-@article{einstein1905molekularkinetischen,
-  title={{\"U}ber die von der molekularkinetischen Theorie der W{\"a}rme geforderte Bewegung von in ruhenden Fl{\"u}ssigkeiten suspendierten Teilchen},
-  author={Einstein, A.},
-  journal={Annalen der physik},
-  volume={322},
-  number={8},
-  pages={549--560},
-  year={1905},
-  publisher={Wiley Online Library}
-}
-
-@article{einstein1905movement,
-  abbr={Ann. Phys.},
-  title={Un the movement of small particles suspended in statiunary liquids required by the molecular-kinetic theory 0f heat},
-  author={Einstein, A.},
-  journal={Ann. Phys.},
-  volume={17},
-  pages={549--560},
-  year={1905}
-}
-
-@article{einstein1905electrodynamics,
-  title={On the electrodynamics of moving bodies},
-  author={Einstein, A.},
-  year={1905}
-}
-
-@Article{einstein1905photoelectriceffect,
+@ARTICLE{Pirk2016-na,
   bibtex_show={true},
-  abbr={Ann. Phys.},
-  title="{{\"U}ber einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt}",
-  author={Albert Einstein},
-  abstract={This is the abstract text.},
-  journal={Ann. Phys.},
-  volume={322},
-  number={6},
-  pages={132--148},
-  year={1905},
-  doi={10.1002/andp.19053220607},
-  award={Albert Einstein receveid the **Nobel Prize in Physics** 1921 *for his services to Theoretical Physics, and especially for his discovery of the law of the photoelectric effect*},
-  award_name={Nobel Prize}
+  abbr = {VLDB},
+  title     = "Voodoo: a vector algebra for portable database performance on
+               modern hardware",
+  author    = "Pirk, Holger and Moll, Oscar and Zaharia, Matei and Madden, Sam",
+  journal   = "Proceedings VLDB Endowment",
+  publisher = "VLDB Endowment",
+  abstract = {
+   In-memory databases require careful tuning and many engineering tricks to achieve good performance. Such database performance engineering is hard: a plethora of data and hardware-dependent optimization techniques form a design space that is difficult to navigate for a skilled engineer --- even more so for a query compiler. To facilitate performance-oriented design exploration and query plan compilation, we present Voodoo, a declarative intermediate algebra that abstracts the detailed architectural properties of the hardware, such as multi- or many-core architectures, caches and SIMD registers, without losing the ability to generate highly tuned code. Because it consists of a collection of declarative, vector-oriented operations, Voodoo is easier to reason about and tune than low-level C and related hardware-focused extensions (Intrinsics, OpenCL, CUDA, etc.). This enables our Voodoo compiler to produce (OpenCL) code that rivals and even outperforms the fastest state-of-the-art in memory databases for both GPUs and CPUs. In addition, Voodoo makes it possible to express techniques as diverse as cache-conscious processing, predication and vectorization (again on both GPUs and CPUs) with just a few lines of code. Central to our approach is a novel idea we termed control vectors, which allows a code generating frontend to expose parallelism to the Voodoo compiler in a abstract manner, enabling portable performance across hardware platforms.We used Voodoo to build an alternative backend for MonetDB, a popular open-source in-memory database. Our backend allows MonetDB to perform at the same level as highly tuned in-memory databases, including HyPeR and Ocelot. We also demonstrate Voodoo's usefulness when investigating hardware conscious tuning techniques, assessing their performance on different queries, devices and data.
+  },
+  volume    =  9,
+  number    =  14,
+  pages     = "1707--1718",
+  month     =  oct,
+  year      =  2016,
+  url       = "https://doi.org/10.14778/3007328.3007336",
+  issn      = "2150-8097",
+  doi       = "10.14778/3007328.3007336"
 }
 
-@book{przibram1967letters,
-  bibtex_show={true},
-  title={Letters on wave mechanics},
-  author={Einstein, Albert and Schrödinger, Erwin and Planck, Max and Lorentz, Hendrik Antoon and Przibram, Karl},
-  year={1967},
-  publisher={Vision},
-  preview={wave-mechanics.gif},
-  abbr={Vision}
-}
