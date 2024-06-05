@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://orm011.github.io//sitemap.xml
+Sitemap: https://oscar-moll.com//sitemap.xml
