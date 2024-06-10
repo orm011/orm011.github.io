@@ -46,7 +46,7 @@ rss_icon: false
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: true
+footer_fixed: false
 search_enabled: false
 socials_in_search: true
 
@@ -86,7 +86,7 @@ lattes_id: # your ID on Lattes (Brazilian Lattes CV)
 linkedin_username: oscarmoll # your LinkedIn user name
 mastodon_username: # your mastodon instance+username in the format instance.tld/@username
 medium_username: # your Medium username
-orcid_id: 0000-0002-5888-4318 # your ORCID ID
+orcid_id: # 0000-0002-5888-4318 # your ORCID ID
 osf_id: # your OSF ID
 pinterest_id: # your pinterest id
 publons_id: # your ID on Publons
@@ -94,7 +94,7 @@ quora_username: # your Quora username
 research_gate_profile: # your profile on ResearchGate
 scholar_userid: HFjBaaoAAAAJ # your Google Scholar ID
 scopus_id: # your profile on Scopus
-semanticscholar_id: 1405774604 # your Semantic Scholar ID
+semanticscholar_id: # 1405774604 # your Semantic Scholar ID
 spotify_id: # your spotify id
 stackoverflow_id: 2392147 # your stackoverflow id
 telegram_username: # your Telegram user name
