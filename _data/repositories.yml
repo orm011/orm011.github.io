@@ -1,12 +1,11 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - orm011
 
 github_repos:
-  - alshedivat/al-folio
-  - twbs/bootstrap
-  - jekyll/jekyll
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - jpswalsh/academicons
-  - mathjax/MathJax
+  - orm011/pgserver
+  - pixeltable/pixeltable
+  - orm011/plot9img
+  - orm011/mmtool
+  - orm011/seesaw
+  - orm011/mplan2vdl
+  - orm011/exsample
