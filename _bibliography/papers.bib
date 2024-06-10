@@ -1,73 +1,196 @@
----
----
-@ARTICLE{Moll2023-hk,
-  bibtex_show={true},
-  abbr = {ACM SIGMOD},
-  title     = "{SeeSaw}: Interactive Ad-hoc Search Over Image Databases",
-  author    = "Moll, Oscar and Favela, Manuel and Madden, Samuel and Gadepally,
-               Vijay and Cafarella, Michael",
-  journal   = "Proc. ACM SIGMOD Int. Conf. Manag. Data",
-  publisher = "Association for Computing Machinery",
-  abstract = {
-     As image datasets become ubiquitous, the problem of ad-hoc searches over image data is increasingly important. Many high-level data tasks in machine learning, such as constructing datasets for training and testing object detectors, imply finding ad-hoc objects or scenes within large image datasets as a key sub-problem. New foundational visual-semantic embeddings trained on massive web datasets such as Contrastive Language-Image Pre-Training (CLIP) can help users start searches on their own data, but we find there is a long tail of queries where these models fall short in practice. Seesaw is a system for interactive ad-hoc searches on image datasets that integrates state-of-the-art embeddings like CLIP with user feedback in the form of box annotations to help users quickly locate images of interest in their data even in the long tail of harder queries. One key challenge for Seesaw is that, in practice, many sensible approaches to incorporating feedback into future results, including state-of-the-art active-learning algorithms, can worsen results compared to introducing no feedback, partly due to CLIP's high-average performance. Therefore, Seesaw includes several algorithms that empirically result in larger and also more consistent improvements. We compare Seesaw's accuracy to both using CLIP alone and to a state-of-the-art active-learning baseline and find Seesaw consistently helps improve results for users across four datasets and more than a thousand queries. Seesaw increases Average Precision (AP) on search tasks by an average of .08 on a wide benchmark (from a base of .72), and by a .27 on a subset of more difficult queries where CLIP alone performs poorly.
-  },
-  volume    =  1,
-  number    =  4,
-  pages     = "1--26",
-  month     =  dec,
-  year      =  2023,
-  url       = "https://doi.org/10.1145/3626754",
-  address   = "New York, NY, USA",
-  keywords  = "active search, data exploration, image retrieval, image search,
-               machine learning, multi-modal embeddings, relevance feedback",
-  issn      = "0730-8078",
-  doi       = "10.1145/3626754",
-  selected  = {true}
-}
+@INPROCEEDINGS{exsample,
+  author={\textbf{Oscar Moll} and Bastani, Favyen and Madden, Sam and Stonebraker, Mike and Gadepally, Vijay and Kraska, Tim},
+  booktitle={2022 IEEE 38th International Conference on Data Engineering (ICDE)},
+  title={ExSample: Efficient Searches on Video Repositories through Adaptive Sampling},
+  year={2022},
+  volume={},
+  number={},
+  pages={2956-2968},
+  keywords={Costs;Navigation;Conferences;Organizations;Search problems;Data engineering;Cameras;video data;sampling;object detection},
+  note={\url{https://arxiv.org/abs/2005.09141}},
+  doi={10.1109/ICDE53745.2022.00266}}
 
-@INPROCEEDINGS{Moll2022-em,
-  bibtex_show={true},
-  abbr = {IEEE ICDE},
-  title           = "{ExSample}: Efficient searches on video repositories
-                     through adaptive sampling",
-  booktitle       = "2022 {IEEE} 38th International Conference on Data
-                     Engineering ({ICDE})",
-  author          = "Moll, Oscar and Bastani, Favyen and Madden, Sam and
-                     Stonebraker, Mike and Gadepally, Vijay and Kraska, Tim",
-  publisher       = "IEEE",
-  abstract = {
-    ExSample is introduced, a low cost framework for object search over un-indexed video that quickly processes search queries by adapting the amount and location of sampled frames to the particular data and query being processed. Capturing and processing video is increasingly common as cameras become cheaper to deploy. At the same time, rich video-understanding methods have progressed greatly in the last decade. As a result, many organizations now have massive repositories of video data, with applications in mapping, navigation, autonomous driving, and other areas. Because state-of-the-art object-detection methods are slow and expensive, our ability to process even simple ad-hoc object search queries (“find 100 traffic lights in dashcam video”) over this accumulated data lags far behind our ability to collect the data. Processing video at reduced sampling rates is a reasonable default strategy for these types of queries; however, the ideal sampling rate is both data and query dependent. We introduce ExSample, a low cost framework for object search over un-indexed video that quickly processes search queries by adapting the amount and location of sampled frames to the particular data and query being processed. ExSample prioritizes the processing of frames in a video repository so that processing is focused in portions of video that most likely contain objects of interest. It approaches searching in a similar way to a multi-arm bandit problem where each arm corresponds to a portion of a video. On large, real-world datasets, ExSample reduces processing time by 1.9x on average and up to 6x over an efficient random sampling baseline. Moreover, we show ExSample finds many results long before sophisticated, state-of-the-art baselines based on proxy scores can begin producing their first results.
-  },
-  month           =  may,
-  year            =  2022,
-  url             = "https://ieeexplore.ieee.org/document/9835550/",
-  language        = "en",
-  conference      = "2022 IEEE 38th International Conference on Data
-                     Engineering (ICDE)",
-  location        = "Kuala Lumpur, Malaysia",
-  doi             = "10.1109/icde53745.2022.00266",
-  selected  = {true}
+@article{seesaw,
+author = {\textbf{Oscar Moll} and Favela, Manuel and Madden, Samuel and Gadepally, Vijay and Cafarella, Michael},
+title = {SeeSaw: Interactive Ad-hoc Search Over Image Databases},
+year = {2023},
+issue_date = {December 2023},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {1},
+number = {4},
+url = {https://doi.org/10.1145/3626754},
+doi = {10.1145/3626754},
+abstract = {As image datasets become ubiquitous, the problem of ad-hoc searches over image data is increasingly important. Many high-level data tasks in machine learning, such as constructing datasets for training and testing object detectors, imply finding ad-hoc objects or scenes within large image datasets as a key sub-problem. New foundational visual-semantic embeddings trained on massive web datasets such as Contrastive Language-Image Pre-Training (CLIP) can help users start searches on their own data, but we find there is a long tail of queries where these models fall short in practice. Seesaw is a system for interactive ad-hoc searches on image datasets that integrates state-of-the-art embeddings like CLIP with user feedback in the form of box annotations to help users quickly locate images of interest in their data even in the long tail of harder queries. One key challenge for Seesaw is that, in practice, many sensible approaches to incorporating feedback into future results, including state-of-the-art active-learning algorithms, can worsen results compared to introducing no feedback, partly due to CLIP's high-average performance. Therefore, Seesaw includes several algorithms that empirically result in larger and also more consistent improvements. We compare Seesaw's accuracy to both using CLIP alone and to a state-of-the-art active-learning baseline and find Seesaw consistently helps improve results for users across four datasets and more than a thousand queries. Seesaw increases Average Precision (AP) on search tasks by an average of .08 on a wide benchmark (from a base of .72), and by a .27 on a subset of more difficult queries where CLIP alone performs poorly.},
+journal = {Proc. ACM Manag. Data},
+month = {dec},
+articleno = {260},
+numpages = {26},
+keywords = {active search, data exploration, image retrieval, image search, machine learning, multi-modal embeddings, relevance feedback},
+note = {\url{https://dl.acm.org/doi/pdf/10.1145/3626754}},
 }
 
 
-@ARTICLE{Pirk2016-na,
-  bibtex_show={true},
-  abbr = {VLDB},
-  title     = "Voodoo: a vector algebra for portable database performance on
-               modern hardware",
-  author    = "Pirk, Holger and Moll, Oscar and Zaharia, Matei and Madden, Sam",
+@ARTICLE{vaas,
+  title     = "Vaas: video analytics at scale",
+  author    = "Bastani, Favyen and \textbf{Oscar Moll} and Madden, Sam",
   journal   = "Proceedings VLDB Endowment",
   publisher = "VLDB Endowment",
-  abstract = {
-   In-memory databases require careful tuning and many engineering tricks to achieve good performance. Such database performance engineering is hard: a plethora of data and hardware-dependent optimization techniques form a design space that is difficult to navigate for a skilled engineer --- even more so for a query compiler. To facilitate performance-oriented design exploration and query plan compilation, we present Voodoo, a declarative intermediate algebra that abstracts the detailed architectural properties of the hardware, such as multi- or many-core architectures, caches and SIMD registers, without losing the ability to generate highly tuned code. Because it consists of a collection of declarative, vector-oriented operations, Voodoo is easier to reason about and tune than low-level C and related hardware-focused extensions (Intrinsics, OpenCL, CUDA, etc.). This enables our Voodoo compiler to produce (OpenCL) code that rivals and even outperforms the fastest state-of-the-art in memory databases for both GPUs and CPUs. In addition, Voodoo makes it possible to express techniques as diverse as cache-conscious processing, predication and vectorization (again on both GPUs and CPUs) with just a few lines of code. Central to our approach is a novel idea we termed control vectors, which allows a code generating frontend to expose parallelism to the Voodoo compiler in a abstract manner, enabling portable performance across hardware platforms.We used Voodoo to build an alternative backend for MonetDB, a popular open-source in-memory database. Our backend allows MonetDB to perform at the same level as highly tuned in-memory databases, including HyPeR and Ocelot. We also demonstrate Voodoo's usefulness when investigating hardware conscious tuning techniques, assessing their performance on different queries, devices and data.
-  },
-  volume    =  9,
-  number    =  14,
-  pages     = "1707--1718",
-  month     =  oct,
-  year      =  2016,
-  url       = "https://doi.org/10.14778/3007328.3007336",
+  volume    =  13,
+  number    =  12,
+  pages     = "2877--2880",
+  month     =  aug,
+  year      =  2020,
+  url       = "https://doi.org/10.14778/3415478.3415498",
   issn      = "2150-8097",
-  doi       = "10.14778/3007328.3007336"
+  doi       = "10.14778/3415478.3415498"
 }
 
+
+@article{vroom,
+  author    = {\textbf{Oscar Moll} and
+               Aaron Zalewski and
+               Sudeep Pillai and
+               Samuel Madden and
+               Michael Stonebraker and
+               Vijay Gadepally},
+  title     = {Exploring big volume sensor data with Vroom},
+  journal   = {{PVLDB} (Demo paper)},
+  volume    = {10},
+  number    = {12},
+  pages     = {1973--1976},
+  year      = {2017},
+  url       = {http://www.vldb.org/pvldb/vol10/p1973-moll.pdf},
+  doi       = {10.14778/3137765.3137822},
+  timestamp = {Tue, 16 Oct 2018 01:00:00 +0200},
+  biburl    = {https://dblp.org/rec/bib/journals/pvldb/MollZPMSG17},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{voodoo,
+  author    = {Holger Pirk and
+               \textbf{Oscar Moll} and
+               Matei Zaharia and
+               Sam Madden},
+  title     = {Voodoo : {A} Vector Algebra for Portable Database Performance on Modern
+               Hardware},
+  journal   = {{PVLDB}},
+  volume    = {9},
+  number    = {14},
+  pages     = {1707--1718},
+  year      = {2016},
+  url       = {http://www.vldb.org/pvldb/vol9/p1707-pirk.pdf},
+  doi       = {10.14778/3007328.3007336},
+  timestamp = {Thu, 16 Aug 2018 01:00:00 +0200},
+  biburl    = {https://dblp.org/rec/bib/journals/pvldb/PirkMZM16},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+@INPROCEEDINGS{adhoc_workshop,
+  title     = "Ad-hoc Searches on Image Databases",
+  booktitle = "Heterogeneous Data Management, Polystores, and Analytics for
+               Healthcare",
+  author    = "\textbf{Oscar Moll} and Madden, Sam and Gadepally, Vijay",
+  publisher = "Springer Nature Switzerland",
+  pages     = "3--9",
+  year      =  2022,
+  url       = "http://dx.doi.org/10.1007/978-3-031-23905-2_1",
+  doi       = "10.1007/978-3-031-23905-2\_1"
+}
+
+
+@inproceedings{candomble,
+  author    = {Holger Pirk and
+               \textbf{Oscar Moll} and
+               Sam Madden},
+  title     = {What Makes a Good Physical plan?: Experiencing Hardware-Conscious
+               Query Optimization with Candombl{\'{e}}},
+  booktitle = {Proceedings of the 2016 International Conference on Management of
+               Data, {SIGMOD} Conference 2016, San Francisco, CA, USA, June 26 -
+               July 01, 2016},
+  pages     = {2149--2152},
+  year      = {2016},
+  crossref  = {DBLP:conf/sigmod/2016},
+  url       = {https://doi.org/10.1145/2882903.2899410},
+  doi       = {10.1145/2882903.2899410},
+  timestamp = {Wed, 14 Nov 2018 10:56:20 +0100},
+  biburl    = {https://dblp.org/rec/bib/conf/sigmod/PirkMM16},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@proceedings{DBLP:conf/sigmod/2016,
+  editor    = {Fatma {\"{O}}zcan and
+               Georgia Koutrika and
+               Sam Madden},
+  title     = {Proceedings of the 2016 International Conference on Management of
+               Data, {SIGMOD} Conference 2016, San Francisco, CA, USA, June 26 -
+               July 01, 2016},
+  publisher = {{ACM}},
+  year      = {2016},
+  url       = {https://doi.org/10.1145/2882903},
+  doi       = {10.1145/2882903},
+  isbn      = {978-1-4503-3531-7},
+  timestamp = {Wed, 14 Nov 2018 10:56:20 +0100},
+  biburl    = {https://dblp.org/rec/bib/conf/sigmod/2016},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{elision,
+  author    = {Yehuda Afek and
+               Alexander Matveev and
+               \textbf{Oscar R. Moll} and
+               Nir Shavit},
+  title     = {Amalgamated Lock-Elision},
+  booktitle = {Distributed Computing - 29th International Symposium, {DISC} 2015,
+               Tokyo, Japan, October 7-9, 2015, Proceedings},
+  pages     = {309--324},
+  year      = {2015},
+  crossref  = {DBLP:conf/wdag/2015},
+  url       = {https://doi.org/10.1007/978-3-662-48653-5\_21},
+  doi       = {10.1007/978-3-662-48653-5\_21},
+  timestamp = {Tue, 14 May 2019 10:00:54 +0200},
+  biburl    = {https://dblp.org/rec/bib/conf/wdag/AfekMMS15},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@proceedings{DBLP:conf/wdag/2015,
+  editor    = {Yoram Moses},
+  title     = {Distributed Computing - 29th International Symposium, {DISC} 2015,
+               Tokyo, Japan, October 7-9, 2015, Proceedings},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {9363},
+  publisher = {Springer},
+  year      = {2015},
+  url       = {https://doi.org/10.1007/978-3-662-48653-5},
+  doi       = {10.1007/978-3-662-48653-5},
+  isbn      = {978-3-662-48652-8},
+  timestamp = {Tue, 14 May 2019 10:00:54 +0200},
+  biburl    = {https://dblp.org/rec/bib/conf/wdag/2015},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@patent{pat1,
+  author       = {Yan Valerie Leshinsky and James Mcclellan Corey and Samuel James McKelvie and Oscar Ricardo Moll Thomae and Pradeep Jnana Madhavarapu},
+  title        = {Efficient garbage collection for a log-structured data storage system},
+  number       = {US10437721B2},
+  year         = {2019},
+  month        = {October},
+  day          = {8},
+  url          = {https://patents.google.com/patent/US10437721B2},
+  assignee     = {Amazon Technologies Inc.},
+  note         = {US Patent and Trademark Office},
+}
+
+
+@patent{pat2,
+    author = {Samuel James McKelvie and Benjamin Tobler and James Mcclellan Corey and Pradeep Jnana Madhavarapu and Oscar Ricardo Moll Thomae and Christopher Richard Newcombe and Yan Valerie Leshinsky and Anurag Windlass Gupta},
+    title = {Individual write quorums for a log-structured distributed storage system},
+    number = {US10223184B1},
+    month = {March},
+    year = {2019},
+    day = {4},
+    url = {https://patents.google.com/patent/US10223184B1},
+    assignee = {Amazon Technologies Inc.},
+    note         = {US Patent and Trademark Office},
+}

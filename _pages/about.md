@@ -21,9 +21,3 @@ I'm interested in the underlying system abstractions that will enable this next 
 Before grad school, I worked as a software engineer at Amazon Web Services, on the [Amazon Aurora DB](https://dl.acm.org/doi/10.1145/3035918.3056101) team; specifically on its innovative, disaggregated cloud storage component.
 
 In my spare time I enjoy hiking and sight seeing in New Hampshire and Maine with the [MIT outing club](https://mitoc.mit.edu/), running along the Charles in Cambridge, and lately strength training the basic four lifts. I am originally from, and grew up in [Cobán](https://en.wikipedia.org/wiki/Cob%C3%A1n), a town in northern Guatemala. I am also a [Li Po Chun United World College](https://www.lpcuwc.edu.hk/) alum, and a Guatemalan science olympiad alum.
-
-<!-- Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
-
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
-
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them. -->
