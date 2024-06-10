@@ -1,11 +1,12 @@
-<!-- ---
-layout: cv
+---
+layout: page
 permalink: /cv/
-title: cv
+title: CV
 nav: true
 nav_order: 5
-cv_pdf: example_pdf.pdf
-description: This is a description of the page. You can modify it in '_pages/cv.md'. You can also change or remove the top pdf download button.
-toc:
-  sidebar: left
---- -->
+cv_pdf: Oscar_Moll_CV.pdf
+# description: This is a description of the page. You can modify it in '_pages/cv.md'. You can also change or remove the top pdf download button.
+# toc:
+#   sidebar: left
+---
+<embed src="/assets/pdf/Oscar_Moll_CV.pdf" type="application/pdf" width="100%" height="600px" />
