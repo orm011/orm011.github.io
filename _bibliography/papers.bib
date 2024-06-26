@@ -49,7 +49,7 @@ abstract={
   abbr = {VLDB},
   pdf = {Bastani_Vaas_VLDB.pdf},
   preview={Bastani_Vaas_VLDB.png},
-  bibtext_show={true},
+  bibtex_show={true},
   title     = "Vaas: video analytics at scale",
   author    = "Bastani, Favyen and Moll, Oscar and Madden, Sam",
   journal   = "Proceedings VLDB Endowment",
@@ -66,6 +66,7 @@ abstract={
    We demonstrate Vaas, a video analytics system for large-scale datasets. Vaas provides an interactive interface to rapidly develop and experiment with different workflows for solving a video analytics task. Users express these workflows as Vaas queries, which specify data flow graphs where nodes may be implemented by machine learning models, custom code, or basic built-in operations (e.g., cropping, selecting detections of by class, filtering tracks by bounding boxes). For example, the problem of detecting lane change events in dashboard camera video could be solved directly as an activity recognition task, by training a model to classify whether a segment of video contains a lane change, or decomposed into a set of simpler tasks, such as detecting lane markers and then identifying shifts in the detected lanes. Our system interface incorporates a query composition tool, where users can rapidly compose operations to implement a workflow, and an exploration tool, where users can experiment with a query by applying it over samples from the dataset to fix bugs and tune parameters. Vaas incorporates recent work in approximate video query processing to support the fast, interactive execution of queries, and accelerates the annotation process of hand-labeling examples to train models by allowing users to annotate over the outputs of previously expressed queries rather than the entire video dataset.
   },
   eprint={https://doi.org/10.14778/3415478.3415498},
+
 }
 
 
@@ -125,7 +126,8 @@ abstract={
   pages     = "3--9",
   year      =  2022,
   url       = "http://dx.doi.org/10.1007/978-3-031-23905-2_1",
-  doi       = "10.1007/978-3-031-23905-2\_1"
+  doi       = "10.1007/978-3-031-23905-2\_1",
+  abstract = {Searching for ad-hoc objects in image and video datasets can be expensive and time consuming. As image data is more common, we increasingly need systems to help us query it. In this talk, we describe related work and then explore two approaches: ExSample and SeeSaw which target different scenarios of image and video search.}
 }
 
 
