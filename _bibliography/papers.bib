@@ -1,18 +1,9 @@
-@INPROCEEDINGS{exsample,
-  author={Moll, Oscar and Bastani, Favyen and Madden, Sam and Stonebraker, Mike and Gadepally, Vijay and Kraska, Tim},
-  booktitle={2022 IEEE 38th International Conference on Data Engineering (ICDE)},
-  title={ExSample: Efficient Searches on Video Repositories through Adaptive Sampling},
-  year={2022},
-  volume={},
-  number={},
-  pages={2956-2968},
-  keywords={Costs;Navigation;Conferences;Organizations;Search problems;Data engineering;Cameras;video data;sampling;object detection},
-  doi={10.1109/ICDE53745.2022.00266},
-  selected={true},
-  }
- // note={\url{https://arxiv.org/abs/2005.09141}},
-
 @article{seesaw,
+abbr={ACM SIGMOD},
+pdf={Moll_SeeSaw_SIGMOD.pdf},
+preview = {SeeSaw_preview.png},
+bibtex_show={true},
+selected={true},
 author = {Moll, Oscar and Favela, Manuel and Madden, Samuel and Gadepally, Vijay and Cafarella, Michael},
 title = {SeeSaw: Interactive Ad-hoc Search Over Image Databases},
 year = {2023},
@@ -29,13 +20,36 @@ month = {dec},
 articleno = {260},
 numpages = {26},
 keywords = {active search, data exploration, image retrieval, image search, machine learning, multi-modal embeddings, relevance feedback},
-selected={true},
+abstract={
+     As image datasets become ubiquitous, the problem of ad-hoc searches over image data is increasingly important. Many high-level data tasks in machine learning, such as constructing datasets for training and testing object detectors, imply finding ad-hoc objects or scenes within large image datasets as a key sub-problem. New foundational visual-semantic embeddings trained on massive web datasets such as Contrastive Language-Image Pre-Training (CLIP) can help users start searches on their own data, but we find there is a long tail of queries where these models fall short in practice. Seesaw is a system for interactive ad-hoc searches on image datasets that integrates state-of-the-art embeddings like CLIP with user feedback in the form of box annotations to help users quickly locate images of interest in their data even in the long tail of harder queries. One key challenge for Seesaw is that, in practice, many sensible approaches to incorporating feedback into future results, including state-of-the-art active-learning algorithms, can worsen results compared to introducing no feedback, partly due to CLIP's high-average performance. Therefore, Seesaw includes several algorithms that empirically result in larger and also more consistent improvements. We compare Seesaw's accuracy to both using CLIP alone and to a state-of-the-art active-learning baseline and find Seesaw consistently helps improve results for users across four datasets and more than a thousand queries. Seesaw increases Average Precision (AP) on search tasks by an average of .08 on a wide benchmark (from a base of .72), and by a .27 on a subset of more difficult queries where CLIP alone performs poorly.
+},
+}
+@INPROCEEDINGS{exsample,
+  abbr={IEEE ICDE},
+  pdf={Moll_ExSample_ICDE.pdf},
+  bibtex_show={true},
+  preview = {ExSample_preview.png},
+  selected={true},
+  author={Moll, Oscar and Bastani, Favyen and Madden, Sam and Stonebraker, Mike and Gadepally, Vijay and Kraska, Tim},
+  booktitle={2022 IEEE 38th International Conference on Data Engineering (ICDE)},
+  title={ExSample: Efficient Searches on Video Repositories through Adaptive Sampling},
+  year={2022},
+  volume={},
+  number={},
+  pages={2956-2968},
+  keywords={Costs;Navigation;Conferences;Organizations;Search problems;Data engineering;Cameras;video data;sampling;object detection},
+  doi={10.1109/ICDE53745.2022.00266},
+  abstract = {
+    ExSample is introduced, a low cost framework for object search over un-indexed video that quickly processes search queries by adapting the amount and location of sampled frames to the particular data and query being processed. Capturing and processing video is increasingly common as cameras become cheaper to deploy. At the same time, rich video-understanding methods have progressed greatly in the last decade. As a result, many organizations now have massive repositories of video data, with applications in mapping, navigation, autonomous driving, and other areas. Because state-of-the-art object-detection methods are slow and expensive, our ability to process even simple ad-hoc object search queries (“find 100 traffic lights in dashcam video”) over this accumulated data lags far behind our ability to collect the data. Processing video at reduced sampling rates is a reasonable default strategy for these types of queries; however, the ideal sampling rate is both data and query dependent. We introduce ExSample, a low cost framework for object search over un-indexed video that quickly processes search queries by adapting the amount and location of sampled frames to the particular data and query being processed. ExSample prioritizes the processing of frames in a video repository so that processing is focused in portions of video that most likely contain objects of interest. It approaches searching in a similar way to a multi-arm bandit problem where each arm corresponds to a portion of a video. On large, real-world datasets, ExSample reduces processing time by 1.9x on average and up to 6x over an efficient random sampling baseline. Moreover, we show ExSample finds many results long before sophisticated, state-of-the-art baselines based on proxy scores can begin producing their first results.
+  },
 
 }
-// note = {\url{https://dl.acm.org/doi/pdf/10.1145/3626754}},
-
 
 @ARTICLE{vaas,
+  abbr = {VLDB},
+  pdf = {Bastani_Vaas_VLDB.pdf},
+  preview={Bastani_Vaas_VLDB.png},
+  bibtext_show={true},
   title     = "Vaas: video analytics at scale",
   author    = "Bastani, Favyen and Moll, Oscar and Madden, Sam",
   journal   = "Proceedings VLDB Endowment",
@@ -47,7 +61,11 @@ selected={true},
   year      =  2020,
   url       = "https://doi.org/10.14778/3415478.3415498",
   issn      = "2150-8097",
-  doi       = "10.14778/3415478.3415498"
+  doi={https://doi.org/10.14778/3415478.3415498},
+  abstract = {
+   We demonstrate Vaas, a video analytics system for large-scale datasets. Vaas provides an interactive interface to rapidly develop and experiment with different workflows for solving a video analytics task. Users express these workflows as Vaas queries, which specify data flow graphs where nodes may be implemented by machine learning models, custom code, or basic built-in operations (e.g., cropping, selecting detections of by class, filtering tracks by bounding boxes). For example, the problem of detecting lane change events in dashboard camera video could be solved directly as an activity recognition task, by training a model to classify whether a segment of video contains a lane change, or decomposed into a set of simpler tasks, such as detecting lane markers and then identifying shifts in the detected lanes. Our system interface incorporates a query composition tool, where users can rapidly compose operations to implement a workflow, and an exploration tool, where users can experiment with a query by applying it over samples from the dataset to fix bugs and tune parameters. Vaas incorporates recent work in approximate video query processing to support the fast, interactive execution of queries, and accelerates the annotation process of hand-labeling examples to train models by allowing users to annotate over the outputs of previously expressed queries rather than the entire video dataset.
+  },
+  eprint={https://doi.org/10.14778/3415478.3415498},
 }
 
 
@@ -72,10 +90,14 @@ selected={true},
 }
 
 @article{voodoo,
+  abbr = {VLDB},
   author    = {Holger Pirk and
                Oscar Moll and
                Matei Zaharia and
                Sam Madden},
+  preview = {Pirk_Voodoo_VLDB.png},
+  pdf = {Pirk_Voodoo_VLDB.pdf},
+  bibtex_show={true},
   title     = {Voodoo : {A} Vector Algebra for Portable Database Performance on Modern
                Hardware},
   journal   = {{PVLDB}},
@@ -87,7 +109,10 @@ selected={true},
   doi       = {10.14778/3007328.3007336},
   timestamp = {Thu, 16 Aug 2018 01:00:00 +0200},
   biburl    = {https://dblp.org/rec/bib/journals/pvldb/PirkMZM16},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+  abstract = {
+   In-memory databases require careful tuning and many engineering tricks to achieve good performance. Such database performance engineering is hard: a plethora of data and hardware-dependent optimization techniques form a design space that is difficult to navigate for a skilled engineer --- even more so for a query compiler. To facilitate performance-oriented design exploration and query plan compilation, we present Voodoo, a declarative intermediate algebra that abstracts the detailed architectural properties of the hardware, such as multi- or many-core architectures, caches and SIMD registers, without losing the ability to generate highly tuned code. Because it consists of a collection of declarative, vector-oriented operations, Voodoo is easier to reason about and tune than low-level C and related hardware-focused extensions (Intrinsics, OpenCL, CUDA, etc.). This enables our Voodoo compiler to produce (OpenCL) code that rivals and even outperforms the fastest state-of-the-art in memory databases for both GPUs and CPUs. In addition, Voodoo makes it possible to express techniques as diverse as cache-conscious processing, predication and vectorization (again on both GPUs and CPUs) with just a few lines of code. Central to our approach is a novel idea we termed control vectors, which allows a code generating frontend to expose parallelism to the Voodoo compiler in a abstract manner, enabling portable performance across hardware platforms.We used Voodoo to build an alternative backend for MonetDB, a popular open-source in-memory database. Our backend allows MonetDB to perform at the same level as highly tuned in-memory databases, including HyPeR and Ocelot. We also demonstrate Voodoo's usefulness when investigating hardware conscious tuning techniques, assessing their performance on different queries, devices and data.
+   }
 }
 
 
@@ -143,6 +168,7 @@ selected={true},
 }
 
 @patent{pat1,
+  abbr={USPTO},
   author       = {Yan Valerie Leshinsky and James Mcclellan Corey and Samuel James McKelvie and Oscar Ricardo Moll Thomae and Pradeep Jnana Madhavarapu},
   title        = {Efficient garbage collection for a log-structured data storage system},
   number       = {US10437721B2},
@@ -155,6 +181,7 @@ selected={true},
 }
 
 @patent{pat2,
+    abbr={USPTO},
     author = {Samuel James McKelvie and Benjamin Tobler and James Mcclellan Corey and Pradeep Jnana Madhavarapu and Oscar Ricardo Moll Thomae and Christopher Richard Newcombe and Yan Valerie Leshinsky and Anurag Windlass Gupta},
     title = {Individual write quorums for a log-structured distributed storage system},
     number = {US10223184B1},

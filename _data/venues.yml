@@ -7,5 +7,9 @@
   color: "#009f36"
 
 "VLDB":
-  url: https://vldb.org/2017/
+  url: https://vldb.org
   color: "#009f36"
+
+"USPTO":
+  url: https://www.uspto.gov/
+  color: "#9f3600"
