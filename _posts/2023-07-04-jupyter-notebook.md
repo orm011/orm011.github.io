@@ -9,58 +9,61 @@ giscus_comments: true
 related_posts: false
 ---
 
-*TLDR: Nearest neighbor search from image examples is the default approach for image searches, but better approaches exist. In the era of CLIP, text-based searches can be much more accurate than example-based searches. We can get the best of both worlds by combining image examples with text hints, and I show a simple way that works. As an aside, I found exemplar SVM was not as effective as I expected vs. simple NN lookup*
+*TLDR: Nearest neighbor search from image examples is the default approach for image searches, but better approaches exist. Text-based searches using models like [CLIP](https://openai.com/index/clip/) can be much more accurate than example-based searches. We can combine the power of image examples with text hints, and I show a simple method to do it.*
 
 Semantic search is a key building block for working with image datasets.
-The most direct way to implement it is via nearest neighbor vector search: vectors mathematically nearest to the lookup example are returned
-The lookups can be fast because of vector indexing.
+The most direct way to implement it is via nearest neighbor vector search: vectors mathematically nearest to the vector representing the image example are returned as search results.
+More sophisticated methods include Exemplar SVM and text-based searches; they all eventually reduce to a nearest neighbor lookup with a modified vector used for the lookup.
 
 ### Exemplar SVM
 
-A more sophisticated approach is ExemplarSVM, explained by Andrej Karpathy, which I summarize:
-1. Use the input image example, $$x_+$$, as a positive example in a training set.
-2. Create negaive examples by sampling database elements at random, even if we may be mislabeling some.
-3. Use this training set to fit a model with linear weights $$w$$, such as an SVM (support vector machine) model.
-4. Use the learned weight $$w$$ as the key for nearest neighbor lookup instead of the original $$x_+$$.
+ExemplarSVM is one such method, defined in [this paper](https://icml.cc/2012/papers/946.pdf) and highlighted by Andrej Karpathy in this [tweet](https://x.com/karpathy/status/1647025230546886658). It works as follows:
+1. Use the input image example, $$\mathbf{x}$$, as a positive example in a training set.
+2. Create negaive examples by sampling some database elements at random, even if we may be mislabeling some.
+3. Use this training set to fit a model with linear weights $$\mathbf{w}$$, such as an SVM (support vector machine) model.
+4. Use the learned weight $$\mathbf{w}$$ as the key for nearest neighbor lookup instead of the original $$\mathbf{x}$$.
 
-This learned vector $$w$$ produces better quality results than the original vector $$x_+$$, without any extra labels or human input, which I personally think is a neat "hello world" example for old-school semi-supervised learning.
+The vector $$\mathbf{w}$$ produces (hopefully) better quality results than the original vector $$\mathbf{x}$$ without any extra labels or human input; this is a neat hello-world example for old-school semi-supervised learning.
 
-### Text based searches
-Alternatively to starting searches with an image, dual image text models like CLIP make it possible to use text descriptions to start image searches.
+### Text-based searches
+Instead of using an image, we can also use CLIP to start searches with a text description.
+CLIP maps both images and text to a vector space where semantically similar text and images have higher dot products, so one can use either to start a nearest neighbor lookup.
+In practice CLIP works very well for text-based search;
+the [CLIP paper](https://arxiv.org/pdf/2103.00020) shows CLIP zero-shot searches (ie. using text-based vectors) consistently deliver higher accuracy for classification than one-shot classifiers generated from an image example.
 
-CLIP is a very strong model that works very well for text-base search.
+If you havent tried CLIP yourself, there are a few good web-demos of CLIP-powered image searches:  ([here's one](https://huggingface.co/spaces/vivin/clip)). This demo lets you use both text-based and image-based searches; you can use a search bar for text or click on images to find similar ones. As far as I can tell, it does not combine these modalities.
 
-Often times I see demos where one can use a text search, and once examples are found, one can use that example for more lookups ([here's one example](https://huggingface.co/spaces/vivien/clip)),  but it is possible to combine both modalities: ie, provide an image as well as text describing the search, something I have not seen discussed.
+### Comparing these approaches
 
-The goal of this post is to quickly compare how well these approaches work on a test dataset, and show a simple modification that combines both example based and text based approaches.
+I compare how well these approaches work on a test dataset, and show a simple modification that combines both example-bsed and text-based approaches. I explain the benchmark details below, but the salient points of the benchmark results are the following:
 
-### Combining both approaches
+1. Exemplar SVM was only marginally better than kNN (unexpected)
+2. Text based search much better than example based search (the big gap in accuracy was unexpected, but the overall observation is consistent with the CLIP paper)
+3. Combining both modalities was clearly better than text search alone (unexpected given point 1)
 
-In particular, I found three surprising behaviors in this benchmark using CLIP embeddings:
-1. Exemplar SVM was only marginally better than kNN (unexpected, I guess it takes away from being a good "hello world" example after all)
-2. Text based search much better than example based search (the gap in accuracy was unexpected)
-3. Combining them was clearly better than text search alone (unexpected given point 1)
+### Combining these approaches
 
-One simple way to combine both approaches is to modify the SVM loss function
-$$ \lambda \frac{1}{2}||w||^2 +  \sum_{i=0}^{n} \max(0, 1 - y_i\cdot(\mathbf{w} \cdot \mathbf {x_i} + b)) $$
+One simple way to combine text and iamge based approaches is to modify the SVM loss function
 
-to include a term for the query vector $$q$$ that encourages preserving a low cosine distance to the text vector.
+$$ \lambda \frac{1}{2}||\mathbf{w}||^2 +  \sum_{i=0}^{n} \max(0, 1 - y_i\cdot(\mathbf{w} \cdot \mathbf {x_i} + b))$$
+
+by adding an extra term for the text query vector $$\mathbf{q}$$ that encourages preserving a low cosine distance to it:
+
 $$ \lambda_q \cdot \left(1. - \frac{\mathbf{q} \cdot \mathbf {w}}{||\mathbf{q}||\cdot ||\mathbf{w}||}\right) $$
 
-$$ \lambda = 10 $$ and $$ \lambda_q = 1000 $$ worked well.
+The text vector $$\mathbf{q}$$ needs to be handled differently from the image vectors $$\mathbf{x}$$;  for example, treating text vectors as if they were example images resulted in overall worse results than simply using the text vector alone.
 
-I should highlight that using the text vector as just another example does not work well at all: I was better off sticking to text alone.
-In my experience the cosine similarity betweeen text and image embeddings (from CLIP) are often low, in the .3-.4 range even when text and images visibly correspond to each other.
-Text and image vectors really inhabit different regions of the vector space even while corresponding semantically, which may be part of the reason we cannot treat them the same way.
+I implemented the model with with PyTorch, and you can inspect it [in this file](https://github.com/orm011/playground/blob/main/playground/linear_model.py).
 
-I tested these methods with a quick benchmark using the ObjectNet dataset, which includes 50k images, and 300 categories.
-Each category has between 100 and 200 samples within the dataset.
-I picked 10 samples from each category at random, using them as starting examples for example-based methods and used the remaining images were used as the test database.
-The ground truth of the dataset can be used to compute average precision scores (higher is better) for each query example.
-Average precision is a good way to evaluate rankings compared to pure precision or recall.
-For exemplar SVM I used a sample of 1000 images from the test set to be used as the negative examples (varying this size did not vary results much, neither did varying the C regularization parameter for the SVM, where C=.3 was used)
+In the following experiments, setting  $$ \lambda = 10 $$ and $$\lambda_q = 1000 $$ worked well, and changing them less than an order of magnitude did not make a huge difference.
+I tested the four different methods described so far on a quick benchmark based on the [ObjectNet dataset](https://objectnet.dev/).
+ObjecNet includes 50K images assigned into 300 categories, I used each category as a test query.
+I picked 10 positive samples at random for each category,  used them as starting vectors $$x$$ for example-based methods and used the remaining images as a test database.
+For the exemplar SVM method and the combined method, I additionaly used a sample of 1000 images from the test set as the negative examples, following the steps above. The exact size of this sample set was not critical for the results.
 
-The code is in this github repo
+For each query example we can compute average precision (AP) scores. The mean AP is the mean over all runs of the experiment. Average precision is a good way to evaluate rankings compared to pure precision or recall because it considers the full ordering of the results.
+
+The code, data, and benchmarks are available in [this notebook and repo](https://github.com/orm011/playground/blob/main/svm_text_exp.ipynb), and I copy the results below from the notebook.
 
 <style>
 table {
@@ -72,22 +75,26 @@ table {
 } */
 </style>
 
-
 | Search Method | Mean Average Precision (mAP) |
 | :------------: | :--------------------------: |
+| Image-based Nearest Neighbor |  0.094 |
 | Exemplar SVM  |  0.099                       |
-| Text          |   0.237                      |
-| Combined example + text     | **0.251**                    |
+| Text-based Nearest Neighbor          |   0.237                      |
+| Combined exemplar SVM + text     | **0.251**                    |
 
+<br>
+It is surprising ExemplarSVM was only marginally better to image nearest neighbor.
+Perhaps the bigger problem with exemplar SVM in this benchmark is that over the 300 categories, ExemplarSVM was better than kNN on about 58% of them, which may make it too unpredictable to be worth implementing in practice.
+On the other hand, the combined approach works better than the text-based 80% of the time.
+While not tested, more positive examples probably create a more consistent improvement.
 
-### Where to go from here
+It is possible the ObjectNet dataset makes text-based search appear stronger than it can be in the wild,  because the ObjectNet dataset itself was collected from a pre-specified set of easily stated classes; its contents cluster around 300 concepts, and these concepts by design correspond to objects with well known names.
 
-Caption generating models provide a simple way to augment example based searches, so these kinds of text based hints may be possible to
-add without requiring user input.
+### Extensions
+There are a few cool things I'd love to explore more, if you know of good work, demos etc. in this area let me know in the comments.
 
-There is a possible bias in the dataset setup text base search: the dataset itself was deliberatly collected from a specified set of classes decided ahead of time,
-This may mean that searches fit simple text descriptions by construction, making text searches look more useful than would be eg in a dataset collected in the wild.
+*Caption generation:* integrating caption-generating models to augment example based searches with text descriptions transparently from the user. ChatGPT4v can easily generate captions for images, which could then be used.
 
+*End-to-end retrieval models:* training an embedding model end-to-end to generate lookup vectors based on both images and text may result in better lookups. A few in-context image generation and editing models implicilty already do something close to this, I just haven't seen it used for retrieval.
 
-and providing negative feedback on results should also be possible.
-Ideally, we would want to both provide examples, counter-examples, and text descriptions of why something is incorrect.
+*Conversational retrieval:* it would be great to provide a variety of negative feedback on results, explaining why something is not a good result.
