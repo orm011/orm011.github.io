@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Combining images with text for better CLIP-based image search
-date: 2024-06-28 08:57:00-0400
+date: 2024-07-17 08:57:00-0400
 description: Combining images with text for better CLIP-based image search
 tags: machine-learning similarity-search retrieval AI
 categories:
