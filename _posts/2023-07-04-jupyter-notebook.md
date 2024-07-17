@@ -2,11 +2,13 @@
 layout: post
 title: Combining images with text for better CLIP-based image search
 date: 2024-06-28 08:57:00-0400
-description: Combining images with text hints to improve image searches
+description: Combining images with text for better CLIP-based image search
 tags: machine-learning similarity-search retrieval AI
 categories:
 giscus_comments: true
 related_posts: false
+related_publications: true
+
 ---
 
 *TLDR: Nearest neighbor search from image examples is the default approach for image searches, but better approaches exist. Text-based searches using models like [CLIP](https://openai.com/index/clip/) can be much more accurate than example-based searches. We can combine the power of image examples with text hints, and I show a simple method to do it.*
@@ -91,10 +93,13 @@ While not tested, more positive examples probably create a more consistent impro
 It is possible the ObjectNet dataset makes text-based search appear stronger than it can be in the wild,  because the ObjectNet dataset itself was collected from a pre-specified set of easily stated classes; its contents cluster around 300 concepts, and these concepts by design correspond to objects with well known names.
 
 ### Extensions
-There are a few cool things I'd love to explore more, if you know of good work, demos etc. in this area let me know in the comments.
+I develop related ideas more deeply in {% cite seesaw %}, where the goal is not just evaluating one example but continuosly adapting during the search as a way to find images with less effort.
+
+That said, there are a few cool things I'd love to explore more and if you know of good work, demos etc. in this area let me know in the comments.
 
 *Caption generation:* integrating caption-generating models to augment example based searches with text descriptions transparently from the user. ChatGPT4v can easily generate captions for images, which could then be used.
 
 *End-to-end retrieval models:* training an embedding model end-to-end to generate lookup vectors based on both images and text may result in better lookups. A few in-context image generation and editing models implicilty already do something close to this, I just haven't seen it used for retrieval.
 
 *Conversational retrieval:* it would be great to provide a variety of negative feedback on results, explaining why something is not a good result.
+
