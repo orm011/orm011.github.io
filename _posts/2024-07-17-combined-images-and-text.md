@@ -5,7 +5,7 @@ date: 2024-07-17 08:57:00-0400
 description: Combining images with text for better CLIP-based image search
 tags: machine-learning similarity-search retrieval AI
 categories:
-giscus_comments: true
+giscus_comments: false
 related_posts: false
 related_publications: true
 
