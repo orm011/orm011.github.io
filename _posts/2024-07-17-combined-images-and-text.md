@@ -8,7 +8,6 @@ categories:
 giscus_comments: false
 related_posts: false
 related_publications: true
-
 ---
 
 *TLDR: Nearest neighbor search from image examples is the default approach for image searches, but there are better approaches. Text-based searches using models like [CLIP](https://openai.com/index/clip/) can be much more accurate than example-based searches. We can combine the power of image examples with text hints, and I show a simple method to do it.*
@@ -21,6 +20,7 @@ More sophisticated methods include Exemplar SVM and text-based searches. All the
 ### Exemplar SVM
 
 ExemplarSVM is one such method, defined in [this paper](https://icml.cc/2012/papers/946.pdf) and highlighted by Andrej Karpathy in this [tweet](https://x.com/karpathy/status/1647025230546886658). It works as follows:
+
 1. Use the input image example, $$\mathbf{x}$$, as a positive example in a training set.
 2. Create negaive examples by sampling some database elements at random, even if we may be mislabeling some.
 3. Use this training set to fit a model with linear weights $$\mathbf{w}$$, such as an SVM (support vector machine) model.
@@ -29,6 +29,7 @@ ExemplarSVM is one such method, defined in [this paper](https://icml.cc/2012/pap
 The vector $$\mathbf{w}$$ produces (hopefully) better quality results than the original vector $$\mathbf{x}$$ without any extra labels or human input; this is a neat hello-world example for old-school semi-supervised learning.
 
 ### Text-based searches
+
 Instead of using an image, we can also use CLIP to start searches with a text description.
 CLIP maps both images and text to a vector space where semantically similar text and images have higher dot products, so one can use either to start a nearest neighbor lookup.
 In practice CLIP works very well for text-based search;
@@ -103,4 +104,3 @@ That said, there are a few cool things I'd love to explore more and if you know 
 *End-to-end retrieval models:* training an embedding model end-to-end to generate lookup vectors based on both images and text may result in better lookups. A few in-context image generation and editing models implicilty already do something close to this, I just haven't seen it used for retrieval.
 
 *Conversational retrieval:* it would be great to provide a variety of negative feedback on results, explaining why something is not a good result.
-
