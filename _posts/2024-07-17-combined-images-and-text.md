@@ -11,11 +11,12 @@ related_publications: true
 
 ---
 
-*TLDR: Nearest neighbor search from image examples is the default approach for image searches, but better approaches exist. Text-based searches using models like [CLIP](https://openai.com/index/clip/) can be much more accurate than example-based searches. We can combine the power of image examples with text hints, and I show a simple method to do it.*
+*TLDR: Nearest neighbor search from image examples is the default approach for image searches, but there are better approaches. Text-based searches using models like [CLIP](https://openai.com/index/clip/) can be much more accurate than example-based searches. We can combine the power of image examples with text hints, and I show a simple method to do it.*
 
-Semantic search is a key building block for working with image datasets.
-The most direct way to implement it is via nearest neighbor vector search: vectors mathematically nearest to the vector representing the image example are returned as search results.
-More sophisticated methods include Exemplar SVM and text-based searches; they all eventually reduce to a nearest neighbor lookup with a modified vector used for the lookup.
+Semantic search is a key building block for working with image datasets. You need it when selecting images with specific attributes for labeling, when seeking to understand corner cases qualitatively, when profiling model errors, when seeking to extend datasets based on specific needs, or when cleaning your data.  In all these cases you often need to locate relevant examples in your data, either based on similarity to some input image, or based on a description. Products like [Scale.ai Nucleus](https://nucleus.scale.com/docs/getting-started) and [Lilac.ml](https://docs.lilacml.com/datasets/dataset_explore.html#keyword-search) for example, offer [search](https://nucleus.scale.com/docs/basic-similarity-search) as a key feature.
+
+The most direct way to implement these searches is via nearest neighbor vector search: vectors mathematically nearest to the vector representing the image example are returned as search results.
+More sophisticated methods include Exemplar SVM and text-based searches. All these methods all eventually reduce to a nearest neighbor lookup and the differences lie on what vector is used.
 
 ### Exemplar SVM
 
@@ -33,7 +34,7 @@ CLIP maps both images and text to a vector space where semantically similar text
 In practice CLIP works very well for text-based search;
 the [CLIP paper](https://arxiv.org/pdf/2103.00020) shows CLIP zero-shot searches (ie. using text-based vectors) consistently deliver higher accuracy for classification than one-shot classifiers generated from an image example.
 
-If you havent tried CLIP yourself, there are a few good web-demos of CLIP-powered image searches:  ([here's one](https://huggingface.co/spaces/vivin/clip)). This demo lets you use both text-based and image-based searches; you can use a search bar for text or click on images to find similar ones. As far as I can tell, it does not combine these modalities.
+If you havent tried CLIP yourself, there are a few good web-demos of CLIP-powered image searches like [this one](https://huggingface.co/spaces/vivien/clip). The demo lets you use both text-based and image-based searches; you can use a search bar for text or click on images to find similar ones. As far as I can tell, it does not combine these modalities.
 
 ### Comparing these approaches
 
@@ -45,7 +46,7 @@ I compare how well these approaches work on a test dataset, and show a simple mo
 
 ### Combining these approaches
 
-One simple way to combine text and iamge based approaches is to modify the SVM loss function
+One simple way to combine the text and image based approaches is to modify the SVM loss function
 
 $$ \lambda \frac{1}{2}||\mathbf{w}||^2 +  \sum_{i=0}^{n} \max(0, 1 - y_i\cdot(\mathbf{w} \cdot \mathbf {x_i} + b))$$
 
@@ -55,7 +56,7 @@ $$ \lambda_q \cdot \left(1. - \frac{\mathbf{q} \cdot \mathbf {w}}{||\mathbf{q}||
 
 The text vector $$\mathbf{q}$$ needs to be handled differently from the image vectors $$\mathbf{x}$$;  for example, treating text vectors as if they were example images resulted in overall worse results than simply using the text vector alone.
 
-I implemented the model with with PyTorch, and you can inspect it [in this file](https://github.com/orm011/playground/blob/main/playground/linear_model.py).
+I implemented this model with PyTorch to accomodate the custom loss function, and you can read it [in this file](https://github.com/orm011/playground/blob/main/playground/linear_model.py).
 
 In the following experiments, setting  $$ \lambda = 10 $$ and $$\lambda_q = 1000 $$ worked well, and changing them less than an order of magnitude did not make a huge difference.
 I tested the four different methods described so far on a quick benchmark based on the [ObjectNet dataset](https://objectnet.dev/).
