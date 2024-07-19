@@ -3,14 +3,14 @@ layout: post
 title: Combining images with text for better CLIP-based image search
 date: 2024-07-17 08:57:00-0400
 description: Combining images with text for better CLIP-based image search
-tags: machine-learning similarity-search retrieval AI
+tags: machine-learning similarity-search retrieval AI CLIP
 categories:
-giscus_comments: false
+giscus_comments: true
 related_posts: false
 related_publications: true
 ---
 
-*TLDR: Nearest neighbor search from image examples is the default approach for image searches, but there are better approaches. Text-based searches using models like [CLIP](https://openai.com/index/clip/) can be much more accurate than example-based searches. We can combine the power of image examples with text hints, and I show a simple method to do it.*
+*Nearest neighbor search from image examples is the default approach for image searches, but there are better approaches, such as ExemplarSVM. Additionally, text-based searches using models like [CLIP](https://openai.com/index/clip/) can be much more accurate than example-based searches. How can we get the best of both worlds? I show a starter approach.*
 
 Semantic search is a key building block for working with image datasets. You need it when selecting images with specific attributes for labeling, when seeking to understand corner cases qualitatively, when profiling model errors, when seeking to extend datasets based on specific needs, or when cleaning your data.  In all these cases you often need to locate relevant examples in your data, either based on similarity to some input image, or based on a description. Products like [Scale.ai Nucleus](https://nucleus.scale.com/docs/getting-started) and [Lilac.ml](https://docs.lilacml.com/datasets/dataset_explore.html#keyword-search) for example, offer [search](https://nucleus.scale.com/docs/basic-similarity-search) as a key feature.
 
