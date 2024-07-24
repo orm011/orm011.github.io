@@ -47,23 +47,21 @@ I compare how well these approaches work on a test dataset, and show a simple mo
 
 ### Combining these approaches
 
-One simple way to combine the text and image based approaches is to use a modified SVM.  Linear SVM is a linear model parametrized by a weight vector $$\mathbf{w} $$ and a scalar bias (which is not important here). It is trained by minimizing the hinge-loss function over model prediction errors:
+One simple method to combine the text and image based approaches is to use a modified SVM.  Linear SVM is a linear model parametrized by a weight vector $$\mathbf{w} $$ and a scalar bias (which is not important here). It is trained by minimizing the hinge-loss function:
 
-$$ \sum_{i=0}^{n} \max(0, 1 - y_i\cdot(\mathbf{w} \cdot \mathbf {x_i} + b))$$
+$$ \sum_{i=0}^{n} \max(0, 1 - y_i\cdot(\mathbf{w} \cdot \mathbf {x_i} + b)) + \lambda \frac{1}{2}||\mathbf{w}||^2  $$
 
-as well as a penalty on the weight norm $$ \lambda \frac{1}{2}||\mathbf{w}||^2 $$, where $$\lambda$$ is a hyperparameter.
+The initial sum is over model prediction errors. The $$y_i$$, the synthetic labels, are $$+1$$ or $$-1$$. The second term is a penalty on making $$w$$ too large $$ \lambda $$ where $$\lambda$$ is a hyperparameter, which is one way to make prediction errors appear lower.
 
-We can modify this SVM loss function to incorporate text information in multiple ways, but not all of them work well. For example, a simple approach is treating the text query vector $$\mathbf{q}$$ as if it was just another positive example, but this resulted in overall worse accuracy than simply using the text vector alone.
+One simple method to incorporate text information is treating the text query vector $$\mathbf{q}$$ as if it was just another positive example, but this resulted in overall worse accuracy than simply using the text vector alone. Instead, we modify the loss function by adding a special extra term for the text query vector $$\mathbf{q}$$ that encourages preserving a low cosine distance to it:
 
-Instead we modify the loss function by adding a special extra term for the text query vector $$\mathbf{q}$$ that encourages preserving a low cosine distance to it:
+$$ \lambda_q \left( 1 - \frac{\mathbf{q} \cdot \mathbf {w}}{||\mathbf{q}||\cdot ||\mathbf{w}||}\right) $$
 
-$$ \lambda_q \cdot \left(1. - \frac{\mathbf{q} \cdot \mathbf {w}}{||\mathbf{q}||\cdot ||\mathbf{w}||}\right) $$
+where $$ \lambda_q $$ is a new hyperparamter weighting this term.
 
 The exact functional form of the distance turns out to not be super-relevant, but the idea of tying $$w$$ to the query vector is consistently important in other experiments I've run. I implemented this model with PyTorch to accomodate the custom loss function, and you can read it [in this file](https://github.com/orm011/playground/blob/main/playground/linear_model.py).
 
-In the following experiments, setting  $$ \lambda = 10 $$ and $$\lambda_q = 1000 $$ worked best, and changing them less than an order of magnitude did not make a huge difference. Using smaller $$ \lambda_q $$ made the gradient from the extra term too small to change results.
-
-I tested the four different methods described so far on a quick benchmark based on the [ObjectNet dataset](https://objectnet.dev/).
+In the following experiments, setting  $$ \lambda = 10 $$ and $$\lambda_q = 1000 $$ worked best, and alterting them below an order of magnitude did not make a big difference. I tested the four different methods described so far on a quick benchmark based on the [ObjectNet dataset](https://objectnet.dev/).
 ObjecNet includes 50K images assigned into 300 categories, I used each category as a test query.
 I picked 10 positive samples at random for each category,  used them as starting vectors $$x$$ for example-based methods and used the remaining images as a test database.
 For the exemplar SVM method and the combined method, I additionaly used a sample of 1000 images from the test set as the negative examples, following the steps above. The exact size of this sample set was not critical for the results.
@@ -99,6 +97,6 @@ It is possible the ObjectNet dataset makes text-based search appear stronger tha
 ### Extensions
 I develop related ideas more deeply in SeeSaw {% cite seesaw %}, a system that reduces the amount of feedback users need to provide in order to improve their image search results.  SeeSaw tackles this problem by leveraging different kinds of image representation and semi-supervised learning techniques, some show up as loss function modifications like the one above.
 
-The experiments with text based and image based results also suggest text representations may be a better intermediate form than pure examples for search. Hence, now that GPT4V can easily generate captions for images, we may be able to use these as intermdiate search representations without requiring extra human input.
+The experiments with text based and image based results also suggest text representations may be a better intermediate form than pure examples for some kinds of searches. Hence, now that GPT4V can easily generate captions for images, we may be able to use these as intermdiate search representations without requiring extra human input.
 
-Beyond single lookup searches and simple binary feedback, it would be great to be able to provide a variety of positive or negative verbal feedback on results, explaining why something is or is not a good result, and improve results that way. Current Visual Language models like GPT4V let you ask questions about input images, but retrieval over your own database of images is not yet an option.
+Beyond single lookup searches and simple binary feedback, it would be great to be able to provide a variety of verbal feedback on results, explaining why something is or is not a good result, and improve results that way. Current Visual Language models like GPT4V let you ask questions about input images, but retrieval over your own database of images is not yet an option.
