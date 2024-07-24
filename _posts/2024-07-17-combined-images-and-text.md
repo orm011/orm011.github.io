@@ -51,13 +51,13 @@ One simple method to combine the text and image based approaches is to use a mod
 
 $$ \sum_{i=0}^{n} \max(0, 1 - y_i\cdot(\mathbf{w} \cdot \mathbf {x_i} + b)) + \lambda \frac{1}{2}||\mathbf{w}||^2  $$
 
-The initial sum is over model prediction errors. The $$y_i$$, the synthetic labels, are $$+1$$ or $$-1$$. The second term is a penalty on making $$w$$ too large $$ \lambda $$ where $$\lambda$$ is a hyperparameter, which is one way to make prediction errors appear lower.
+The initial sum is over model prediction errors. The $$y_i$$ are the synthetic labels, with value $$+1$$ or $$-1$$. The second term is a penalty on making $$\mathbf{w}$$ too large. $$\lambda$$ is a hyperparameter weight on this penalty.
 
-One simple method to incorporate text information is treating the text query vector $$\mathbf{q}$$ as if it was just another positive example, but this resulted in overall worse accuracy than simply using the text vector alone. Instead, we modify the loss function by adding a special extra term for the text query vector $$\mathbf{q}$$ that encourages preserving a low cosine distance to it:
+One simple method to incorporate text information into Linear SVM is treating the text query vector $$\mathbf{q}$$ as if it was just another positive example, but this resulted in overall worse accuracy than simply using the text vector alone. Instead, we modify the loss function by adding a second penalty term for large deviations from the text query vector $$\mathbf{q}$$
 
 $$ \lambda_q \left( 1 - \frac{\mathbf{q} \cdot \mathbf {w}}{||\mathbf{q}||\cdot ||\mathbf{w}||}\right) $$
 
-where $$ \lambda_q $$ is a new hyperparamter weighting this term.
+where $$ \lambda_q $$ is a new hyperparamter weighting this second penalty term.
 
 The exact functional form of the distance turns out to not be super-relevant, but the idea of tying $$w$$ to the query vector is consistently important in other experiments I've run. I implemented this model with PyTorch to accomodate the custom loss function, and you can read it [in this file](https://github.com/orm011/playground/blob/main/playground/linear_model.py).
 
