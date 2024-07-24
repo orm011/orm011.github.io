@@ -47,25 +47,28 @@ I compare how well these approaches work on a test dataset, and show a simple mo
 
 ### Combining these approaches
 
-One simple way to combine the text and image based approaches is to modify the SVM loss function
+One simple way to combine the text and image based approaches is to use a modified SVM.  Linear SVM is a linear model parametrized by a weight vector $$\mathbf{w} $$ and a scalar bias (which is not important here). It is trained by minimizing the hinge-loss function over model prediction errors:
 
-$$ \lambda \frac{1}{2}||\mathbf{w}||^2 +  \sum_{i=0}^{n} \max(0, 1 - y_i\cdot(\mathbf{w} \cdot \mathbf {x_i} + b))$$
+$$ \sum_{i=0}^{n} \max(0, 1 - y_i\cdot(\mathbf{w} \cdot \mathbf {x_i} + b))$$
 
-by adding an extra term for the text query vector $$\mathbf{q}$$ that encourages preserving a low cosine distance to it:
+as well as a penalty on the weight norm $$ \lambda \frac{1}{2}||\mathbf{w}||^2 $$, where $$\lambda$$ is a hyperparameter.
+
+We can modify this SVM loss function to incorporate text information in multiple ways, but not all of them work well. For example, a simple approach is treating the text query vector $$\mathbf{q}$$ as if it was just another positive example, but this resulted in overall worse accuracy than simply using the text vector alone.
+
+Instead we modify the loss function by adding a special extra term for the text query vector $$\mathbf{q}$$ that encourages preserving a low cosine distance to it:
 
 $$ \lambda_q \cdot \left(1. - \frac{\mathbf{q} \cdot \mathbf {w}}{||\mathbf{q}||\cdot ||\mathbf{w}||}\right) $$
 
-The text vector $$\mathbf{q}$$ needs to be handled differently from the image vectors $$\mathbf{x}$$;  for example, treating text vectors as if they were example images resulted in overall worse results than simply using the text vector alone.
+The exact functional form of the distance turns out to not be super-relevant, but the idea of tying $$w$$ to the query vector is consistently important in other experiments I've run. I implemented this model with PyTorch to accomodate the custom loss function, and you can read it [in this file](https://github.com/orm011/playground/blob/main/playground/linear_model.py).
 
-I implemented this model with PyTorch to accomodate the custom loss function, and you can read it [in this file](https://github.com/orm011/playground/blob/main/playground/linear_model.py).
+In the following experiments, setting  $$ \lambda = 10 $$ and $$\lambda_q = 1000 $$ worked best, and changing them less than an order of magnitude did not make a huge difference. Using smaller $$ \lambda_q $$ made the gradient from the extra term too small to change results.
 
-In the following experiments, setting  $$ \lambda = 10 $$ and $$\lambda_q = 1000 $$ worked well, and changing them less than an order of magnitude did not make a huge difference.
 I tested the four different methods described so far on a quick benchmark based on the [ObjectNet dataset](https://objectnet.dev/).
 ObjecNet includes 50K images assigned into 300 categories, I used each category as a test query.
 I picked 10 positive samples at random for each category,  used them as starting vectors $$x$$ for example-based methods and used the remaining images as a test database.
 For the exemplar SVM method and the combined method, I additionaly used a sample of 1000 images from the test set as the negative examples, following the steps above. The exact size of this sample set was not critical for the results.
 
-For each query example we can compute average precision (AP) scores. The mean AP is the mean over all runs of the experiment. Average precision is a good way to evaluate rankings compared to pure precision or recall because it considers the full ordering of the results.
+For each query example we compute average precision (AP) scores. The mean AP is the mean over all runs of the experiment (about 3K). Average precision is a good metric to evaluate rankings compared to pure precision or recall because it considers the full ordering of the results.
 
 The code, data, and benchmarks are available in [this notebook and repo](https://github.com/orm011/playground/blob/main/svm_text_exp.ipynb), and I copy the results below from the notebook.
 
@@ -87,20 +90,15 @@ table {
 | Combined exemplar SVM + text     | **0.251**                    |
 
 <br>
-It is surprising ExemplarSVM was only marginally better to image nearest neighbor.
-Perhaps the bigger problem with exemplar SVM in this benchmark is that over the 300 categories, ExemplarSVM was better than kNN on about 58% of them, which may make it too unpredictable to be worth implementing in practice.
+I was suprised that ExemplarSVM only marginally beat image-based nearest neighbor. Perhaps the bigger problem with exemplar SVM in this benchmark is that over the 300 categories, ExemplarSVM was better than kNN on less than 60% of them, which may make it too unpredictable to be worth implementing in practice.
 On the other hand, the combined approach works better than the text-based 80% of the time.
-While not tested, more positive examples probably create a more consistent improvement.
+For both approaches, more positive examples will probably create a more consistent improvement.
 
 It is possible the ObjectNet dataset makes text-based search appear stronger than it can be in the wild,  because the ObjectNet dataset itself was collected from a pre-specified set of easily stated classes; its contents cluster around 300 concepts, and these concepts by design correspond to objects with well known names.
 
 ### Extensions
-I develop related ideas more deeply in {% cite seesaw %}, where the goal is not just evaluating one example but continuosly adapting during the search as a way to find images with less effort.
+I develop related ideas more deeply in SeeSaw {% cite seesaw %}, a system that reduces the amount of feedback users need to provide in order to improve their image search results.  SeeSaw tackles this problem by leveraging different kinds of image representation and semi-supervised learning techniques, some show up as loss function modifications like the one above.
 
-That said, there are a few cool things I'd love to explore more and if you know of good work, demos etc. in this area let me know in the comments.
+The experiments with text based and image based results also suggest text representations may be a better intermediate form than pure examples for search. Hence, now that GPT4V can easily generate captions for images, we may be able to use these as intermdiate search representations without requiring extra human input.
 
-*Caption generation:* integrating caption-generating models to augment example based searches with text descriptions transparently from the user. ChatGPT4v can easily generate captions for images, which could then be used.
-
-*End-to-end retrieval models:* training an embedding model end-to-end to generate lookup vectors based on both images and text may result in better lookups. A few in-context image generation and editing models implicilty already do something close to this, I just haven't seen it used for retrieval.
-
-*Conversational retrieval:* it would be great to provide a variety of negative feedback on results, explaining why something is not a good result.
+Beyond single lookup searches and simple binary feedback, it would be great to be able to provide a variety of positive or negative verbal feedback on results, explaining why something is or is not a good result, and improve results that way. Current Visual Language models like GPT4V let you ask questions about input images, but retrieval over your own database of images is not yet an option.
