@@ -1,0 +1,12 @@
+github_users:
+  - orm011
+
+github_repos:
+  - orm011/pgserver
+  - pixeltable/pixeltable
+  - orm011/plot9img
+  - orm011/mmtool
+  - orm011/seesaw
+  - orm011/mplan2vdl
+  - orm011/exsample
+  - orm011/rosbag2parquet

@@ -1,0 +1,15 @@
+"ACM SIGMOD":
+  url: https://2024.sigmod.org/
+  color: "#009f36"
+
+"IEEE ICDE":
+  url: https://ieeexplore.ieee.org/servlet/opac?punumber=10184508
+  color: "#009f36"
+
+"VLDB":
+  url: https://vldb.org
+  color: "#009f36"
+
+"USPTO":
+  url: https://www.uspto.gov/
+  color: "#9f3600"
