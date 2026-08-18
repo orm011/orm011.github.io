@@ -95,7 +95,7 @@ For both approaches, more positive examples will probably create a more consiste
 It is possible the ObjectNet dataset makes text-based search appear stronger than it can be in the wild,  because the ObjectNet dataset itself was collected from a pre-specified set of easily stated classes; its contents cluster around 300 concepts, and these concepts by design correspond to objects with well known names.
 
 ### Extensions
-I develop related ideas more deeply in [SeeSaw](/assets/pdf/Moll_SeeSaw_SIGMOD.pdf), a system that reduces the amount of feedback users need to provide in order to improve their image search results. SeeSaw tackles this problem by leveraging different kinds of image representation and semi-supervised learning techniques, some show up as loss function modifications like the one above.
+I develop related ideas more deeply in [SeeSaw: Interactive Ad-hoc Search Over Image Databases](/assets/pdf/Moll_SeeSaw_SIGMOD.pdf) (Moll et al., 2023), a system that reduces the amount of feedback users need to provide in order to improve their image search results. SeeSaw tackles this problem by leveraging different kinds of image representation and semi-supervised learning techniques, some show up as loss function modifications like the one above.
 
 The experiments with text based and image based results also suggest text representations may be a better intermediate form than pure examples for some kinds of searches. Hence, now that GPT4V can easily generate captions for images, we may be able to use these as intermdiate search representations without requiring extra human input.
 
