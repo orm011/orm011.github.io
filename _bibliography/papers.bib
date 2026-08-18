@@ -159,6 +159,8 @@ abstract={
   title     = {Amalgamated Lock-Elision},
   pdf       = {ALE_DISC15_paper.pdf},
   preview   = {ALE_DISC15_preview.png},
+  bibtex_show = {true},
+  abstract = {Hardware lock-elision (HLE) introduces concurrency into legacy lock-based code by optimistically executing critical sections in fast-path hardware transactions. Its main limitation is that in case of repeated aborts, it reverts to a fallback-path that acquires a serial lock. This fallback-path lacks hardware-software concurrency, because all fast-path hardware transactions abort and wait for the completion of the fallback. Software lock elision has no such limitation, but the overheads incurred are simply too high. We propose amalgamated lock-elision (ALE), a novel lock-elision algorithm that provides hardware-software concurrency and efficiency: the fallback-path executes concurrently with fast-path hardware transactions, while common-path fast-path reads incur no overheads and proceed without any instrumentation. The key idea in ALE is to use a sequence of fine-grained locks in the fallback-path to detect conflicts with the fast-path, while reducing their costs by executing the fallback-path as dynamically sized segments, each of which is a short hardware transaction. We implemented ALE in GCC and tested it on an Intel Haswell 16-way chip that provides hardware transactions. We benchmarked linked lists, hash tables, and red-black trees, as well as converting KyotoCacheDB to use ALE in GCC; all show ALE significantly outperforms HLE.},
   booktitle = {Distributed Computing - 29th International Symposium, {DISC} 2015,
                Tokyo, Japan, October 7-9, 2015, Proceedings},
   pages     = {309--324},
